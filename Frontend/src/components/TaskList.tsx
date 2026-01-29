@@ -59,8 +59,8 @@ const TaskList = () => {
   }
 
   return (
-    <div className="space-y-2">
-      <div className="flex flex-col  justify-left gap-4 bg-white rounded-xl shadow-sm border border-slate-200 p-4 w-96/300 ">
+    <div className="space-y-2 flex flex-col items-center">
+      <div className="flex flex-col gap-4 bg-white rounded-xl shadow-sm border border-slate-200 p-4  justify-between sm:flex-col sm:items-center min-w-[32%]">
         <h2 className="text-3xl font-bold text-slate-900">Tareas</h2>
         <button
           onClick={() => navigate('/tasks/new')}
@@ -83,7 +83,7 @@ const TaskList = () => {
           </div>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-7xl">
           {tasks.map((task) => (
             <div
               key={task.id}
