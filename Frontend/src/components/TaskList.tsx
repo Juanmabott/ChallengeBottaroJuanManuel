@@ -58,7 +58,7 @@ const TaskList = () => {
       <div className="flex flex-col gap-4 bg-white rounded-xl shadow-sm border border-slate-200 p-4  justify-between sm:flex-col sm:items-center min-w-[32%]">
         <h2 className="text-3xl font-bold text-slate-900">Tareas</h2>
         <button
-          onClick={() => navigate('/tasks/new')}
+          onClick={() => navigate('/tasksForm')}
           className="w-full sm:w-40 px-6 py-3 bg-linear-to-r from-blue-600 to-blue-700 text-white font-semibold rounded-lg hover:from-blue-700 hover:to-blue-800 transition-all shadow-md hover:shadow-lg transform hover:scale-105"
         >+ Nueva Tarea
         </button>
@@ -70,7 +70,7 @@ const TaskList = () => {
             <h3 className="text-xl font-semibold text-slate-800 mb-2">No hay tareas aún</h3>
             <p className="text-slate-500 mb-6">Crea una tarea para comenza</p>
             <button
-              onClick={() => navigate('/tasks/new')}
+              onClick={() => navigate('/tasksForm')}
               className="px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors shadow-sm"
             >
               Crear Tarea
@@ -99,14 +99,14 @@ const TaskList = () => {
                             </div>
               <div className="flex flex-col gap-2 mt-4 pt-4 border-t border-slate-100">
                 <button
-                  onClick={() => navigate(`/tasks/${task.id}`)}
+                  onClick={() => navigate(`/tasksItem/${task.id}`)}
                   className="w-full px-4 py-2.5 bg-linear-to-r from-slate-600 to-slate-700 text-white font-medium rounded-lg hover:from-slate-700 hover:to-slate-800 transition-all shadow-sm"
                 >
                   Ver Detalles
                 </button>
                 <div className="flex gap-2">
                   <button
-                    onClick={() => navigate(`/tasks/${task.id}/edit`)}
+                    onClick={() => navigate(`/tasksForm/${task.id}/edit`)}
                     className="flex-1 px-3 py-2 bg-blue-50 text-blue-700 font-medium rounded-lg hover:bg-blue-100 transition-colors text-sm"
                   >
                     Editar

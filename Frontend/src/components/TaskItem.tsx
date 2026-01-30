@@ -45,13 +45,13 @@ export const TaskItem = () => {
                             <h2 className="text-3xl font-bold text-white flex-1">{task.title}</h2>
                             <div className="flex gap-2">
                                 <button
-                                    onClick={() => navigate(`/tasks/${id}/edit`)}
+                                    onClick={() => navigate(`/tasksForm/${id}/edit`)}
                                     className="px-5 py-2.5 bg-white text-blue-700 font-semibold rounded-lg hover:bg-blue-50 transition-all shadow-md hover:shadow-lg"
                                 >
                                     Editar
                                 </button>
                                 <button
-                                    onClick={() => navigate('/tasks')}
+                                    onClick={() => navigate('/tasksList')}
                                     className="px-5 py-2.5 bg-white/20 backdrop-blur-sm text-white font-semibold rounded-lg hover:bg-white/30 transition-all"
                                 >
                                     ← Volver
@@ -86,7 +86,7 @@ export const TaskItem = () => {
                         </div>
                         <div className="mt-8 pt-6 border-t border-slate-200 flex justify-center">
                             <button
-                                onClick={() => navigate('/tasks')}
+                                onClick={() => navigate('/tasksList')}
                                 className="px-8 py-3 bg-linear-to-r from-slate-600 to-slate-700 text-white font-semibold rounded-lg hover:from-slate-700 hover:to-slate-800 transition-all shadow-md hover:shadow-lg transform hover:scale-105"
                             >
                                 Ver Todas las Tareas
