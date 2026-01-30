@@ -1,11 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-interface Task {
-  id: number;
-  title: string;
-  description: string;
-}
+import type { Task } from '../types/task';
 
 const TaskList = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -93,6 +88,15 @@ const TaskList = () => {
                 <h3 className="text-xl font-semibold text-slate-900 mb-3 line-clamp-2">{task.title}</h3>
                 <p className="text-slate-600 mb-4 line-clamp-3 text-sm">{task.description}</p>
               </div>
+             
+                <p className="text-slate-700 text-sm leading-relaxed whitespace-pre-wrap">{new Date(task.createdAt).toLocaleDateString()}</p>
+             
+              <div className="mt-2">
+                                <p className={`text-sm font-semibold flex items-center gap-2 ${task.completed ? 'text-green-600' : 'text-red-600'}`}>
+                                    <span className={` ${task.completed ? 'text-green-500' : 'text-red-500'}`}>●</span>
+                                    {task.completed ? 'Completada' : 'Pendiente'}
+                                </p>
+                            </div>
               <div className="flex flex-col gap-2 mt-4 pt-4 border-t border-slate-100">
                 <button
                   onClick={() => navigate(`/tasks/${task.id}`)}

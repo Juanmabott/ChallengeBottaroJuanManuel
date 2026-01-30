@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import type { Task } from "../types/task";
+
 export const TaskItem = () => {
-    const [task, setTask] = useState<{id:number; title:string; description:string;} | null>(null);
+    const [task, setTask] = useState<Task | null>(null);
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
 
@@ -64,6 +66,22 @@ export const TaskItem = () => {
                             </h3>
                             <div className="bg-slate-50 rounded-lg p-6 border border-slate-200">
                                 <p className="text-slate-700 text-lg leading-relaxed whitespace-pre-wrap">{task.description}</p>
+                            </div>
+                        </div>
+                       
+                        
+                        <div className="mb-4">
+                            <h3 className="text-sm font-bold text-slate-500 uppercase tracking-wider mb-4">
+                                Fecha de Creación
+                            </h3>
+                            <div className="bg-slate-50 rounded-lg p-6 border border-slate-200">
+                                <p className="text-slate-700 text-lg leading-relaxed whitespace-pre-wrap">{new Date(task.createdAt).toLocaleDateString()}</p>
+                            </div>
+                            <div className="mt-2">
+                                <p className={`text-sm font-semibold flex items-center gap-2 ${task.completed ? 'text-green-600' : 'text-red-600'}`}>
+                                    <span className={`text-xl ${task.completed ? 'text-green-500' : 'text-red-500'}`}>●</span>
+                                    {task.completed ? 'Completada' : 'Pendiente'}
+                                </p>
                             </div>
                         </div>
                         <div className="mt-8 pt-6 border-t border-slate-200 flex justify-center">

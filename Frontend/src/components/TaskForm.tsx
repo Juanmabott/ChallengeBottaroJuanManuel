@@ -6,6 +6,7 @@ const TaskForm = () => {
   const navigate = useNavigate();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  const [completed, setCompleted] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const isEditMode = Boolean(id);
@@ -19,6 +20,7 @@ const TaskForm = () => {
             const data = await response.json();
             setTitle(data.title);
             setDescription(data.description);
+            setCompleted(data.completed);
           } else {
             console.error('Error fetching task:', response.statusText);
           }
@@ -45,7 +47,7 @@ const TaskForm = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ title, description }),
+        body: JSON.stringify({ title, description, completed }),
       });
 
       if (response.ok) {
@@ -66,7 +68,7 @@ const TaskForm = () => {
         <div className="bg-white rounded-xl shadow-lg border border-slate-200 p-8 md:p-10">
           <div className="text-center mb-8">
             <h2 className="text-3xl font-bold text-slate-900">
-              {isEditMode ? ' Editar Task' : '➕ Crear  Tarea'}
+              {isEditMode ? ' Editar Tarea' : '➕ Crear  Tarea'}
             </h2>
             <p className="text-slate-500 mt-2">
               {isEditMode ? 'Update your task details below' : 'Fill in the details for your new task'}
@@ -101,13 +103,25 @@ const TaskForm = () => {
                 className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition resize-none text-slate-900 placeholder-slate-400"
               />
             </div>
+            <div className="flex items-center gap-3">
+              <input
+                type="checkbox"
+                id="completed"
+                checked={completed}
+                onChange={(e) => setCompleted(e.target.checked)}
+                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-slate-300 rounded"
+              />
+              <label htmlFor="completed" className="text-sm font-medium text-slate-700">
+                marcar completada
+              </label>
+            </div>
             <div className="flex flex-col sm:flex-row gap-3 pt-6">
               <button
                 type="submit"
                 disabled={loading}
                 className="flex-1 px-6 py-3.5 bg-linear-to-r from-blue-600 to-blue-700 text-white font-semibold rounded-lg hover:from-blue-700 hover:to-blue-800 disabled:from-blue-400 disabled:to-blue-400 disabled:cursor-not-allowed transition-all shadow-md hover:shadow-lg transform hover:scale-[1.02] disabled:transform-none"
               >
-                {loading ? '💾 Saving...' : isEditMode ? '✓ Update Task' : '+ Create Task'}
+                {loading ? '💾 Saving...' : isEditMode ? '✓ Actualizar Tarea' : '+ Crear Tarea'}
               </button>
               <button
                 type="button"
