@@ -5,6 +5,7 @@ import type { Task } from '../types/task';
 const TaskList = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [loading, setLoading] = useState(true);
+  const [filter, setFilter] = useState<'all' | 'completed' | 'pending'>('all');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -42,6 +43,12 @@ const TaskList = () => {
     }
   };
 
+  const filteredTasks = tasks.filter((task) => {
+    if (filter === 'completed') return task.completed;
+    if (filter === 'pending') return !task.completed;
+    return true;
+  });
+
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-125">
@@ -63,7 +70,41 @@ const TaskList = () => {
         >+ Nueva Tarea
         </button>
       </div>
-      {tasks.length === 0 ? (
+
+      <div className="flex gap-2 flex-wrap justify-center min-w-[32%]">
+        <button
+          onClick={() => setFilter('all')}
+          className={`px-4 py-2 rounded-lg font-medium transition-all ${
+            filter === 'all'
+              ? 'bg-blue-600 text-white shadow-md'
+              : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
+          }`}
+        >
+          Todas
+        </button>
+        <button
+          onClick={() => setFilter('completed')}
+          className={`px-4 py-2 rounded-lg font-medium transition-all ${
+            filter === 'completed'
+              ? 'bg-green-600 text-white shadow-md'
+              : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
+          }`}
+        >
+          Completadas
+        </button>
+        <button
+          onClick={() => setFilter('pending')}
+          className={`px-4 py-2 rounded-lg font-medium transition-all ${
+            filter === 'pending'
+              ? 'bg-red-600 text-white shadow-md'
+              : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
+          }`}
+        >
+          Pendientes
+        </button>
+      </div>
+
+      {filteredTasks.length === 0 ? (
         <div className="flex items-center justify-center min-h-100">
           <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-16 text-center max-w-md mx-auto">
             <div className="text-6xl mb-4">📝</div>
@@ -79,7 +120,7 @@ const TaskList = () => {
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-7xl">
-          {tasks.map((task) => (
+          {filteredTasks.map((task) => (
             <div
               key={task.id}
               className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 hover:shadow-lg hover:border-blue-300 transition-all transform hover:-translate-y-1 flex flex-col"
@@ -88,9 +129,9 @@ const TaskList = () => {
                 <h3 className="text-xl font-semibold text-slate-900 mb-3 line-clamp-2">{task.title}</h3>
                 <p className="text-slate-600 mb-4 line-clamp-3 text-sm">{task.description}</p>
               </div>
-             
+              
                 <p className="text-slate-700 text-sm leading-relaxed whitespace-pre-wrap">{new Date(task.createdAt).toLocaleDateString()}</p>
-             
+              
               <div className="mt-2">
                                 <p className={`text-sm font-semibold flex items-center gap-2 ${task.completed ? 'text-green-600' : 'text-red-600'}`}>
                                     <span className={` ${task.completed ? 'text-green-500' : 'text-red-500'}`}>●</span>
